@@ -1,0 +1,28 @@
+<div class="container">
+<h2>Liste des catégories </h2>
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <input  class="category-input" type="text" formControlName="categoryName" placeholder="Entrez le nom de la category à  créer"/>
+  <button class="category-button"> Créer la catégorie </button>
+</form>
+<div class="categories-container" >
+<div *ngFor="let category of categories" class="categories-list">
+  <div>{{category.name}}
+  <button (click)="addNewTask(category.id)"> Ajouter une tâche </button>
+  </div>
+  <div [formGroup]="taskForm" *ngIf="isAddTask">
+    <input type="text" placeholder="tâche" formControlName="name">
+    <input type="checkbox" formControlName="completed"> Finie
+    <button (click)="addTask(category.id)" >Ajouter</button>
+  </div>
+  <div *ngFor="let task of category.task">
+   <div class="task-container">
+    <p>{{task.name}}</p>
+    <p > {{task.completed ? 'Terminé' : 'Non terminé'}}</p>
+    <button (click)="deleteTask(category.id, task.id)">Supprimer</button>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+

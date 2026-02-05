@@ -1,0 +1,57 @@
+.container{
+  padding: 32px;
+}
+.category-input{
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  border-color: lightgrey;
+  width: 300px;
+  font-size: medium;
+}
+.category-button{
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: medium;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: auto;
+  border-radius: 16px;
+  background-color: darkblue;
+  color: white;
+  margin-left: 16px;
+}
+.categories-container{
+ display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin-top: 16px;
+    gap:32px;
+}
+.categories-list{
+  padding: 2px 16px;
+  border: 1px solid lightgrey;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  button{
+  border: none;
+  font-size: small;
+  }
+}
+.task-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.task-button{
+  border: none;
+}
