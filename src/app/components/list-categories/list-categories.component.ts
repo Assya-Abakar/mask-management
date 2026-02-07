@@ -2,11 +2,17 @@ import { Categories , Task} from './../../models/categories';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TaskService } from '../../service/task.service';
+import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-categories',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule,ReactiveFormsModule, MatCardModule, MatCheckboxModule,MatButtonModule, MatInputModule],
   templateUrl: './list-categories.component.html',
   styleUrl: './list-categories.component.css'
 })
@@ -23,54 +29,54 @@ taskForm = this.fb.group({
 })
 isAddTask : boolean = false;
 
+constructor( private readonly taskService: TaskService, 
+              private readonly router : Router
+) { }
+
 ngOnInit(): void {
   const savedCategories = localStorage.getItem('categories');
   if(savedCategories){
     this.categories = JSON.parse(savedCategories);
   }
-  console.log(this.categories);
   localStorage.setItem('task', JSON.stringify(this.categories));
 }
 
 public onSubmit() : void {
 if(this.categoryForm.valid && this.categoryForm.value.categoryName != undefined){
-  const category : Categories =
-  { id :this.categories.length + 1,
-    name : this.categoryForm.value.categoryName,
-    task :[],
-  }
-  this.categories.push(category);
+  this.taskService.addCategory(this.categories, this.categoryForm);
 }
-localStorage.setItem('categories', JSON.stringify(this.categories));
+else {
+  alert('Please fill in all the fields');
+}
 this.categoryForm.reset();
 }
 
+public categoryDetails(arg: number) : void {
+  console.log(arg);
+  this.router.navigate(['/category'],
+  { queryParams: { id: arg } }
+  );
+}
+
 public addTask(arg: number) {
-  console.log(localStorage.getItem('task'), this.taskForm.value.completed);
-  if(this.taskForm.valid && this.taskForm.value.name != undefined && this.taskForm.value.completed != undefined){
-const task  : Task = {
-id : this.categories[arg-1].task.length + 1,
-name : this.taskForm.value.name,
-completed : this.taskForm.value.completed,
+
+if(this.taskForm.valid && this.taskForm.value.name != undefined && this.taskForm.value.completed != undefined){
+  this.taskService.addTask(arg, this.categories, this.taskForm);
 }
-this.categories[arg-1].task.push(task);
-localStorage.setItem('task', JSON.stringify(this.categories[arg-1].task));
-localStorage.setItem('categories', JSON.stringify(this.categories));
-console.log(this.categories[arg-1]);
+else {
+  alert('Please fill in all the fields');
 }
-else return;
+this.taskForm.reset();
 }
 
 public addNewTask(id : number) : void {
-  console.log(this.categories[id].id, id);
-  if(this.categories[id-1].id === id){
+if(this.categories[id-1].id === id){
 this.isAddTask = true;
 }
 }
 
 deleteTask(arg0: number, arg1: number) {
-  this.categories[arg0-1].task.splice(arg1-1, 1);
-  localStorage.setItem('categories', JSON.stringify(this.categories));
+  this.taskService.deleteTask(arg0, arg1, this.categories);
 }
 
 }

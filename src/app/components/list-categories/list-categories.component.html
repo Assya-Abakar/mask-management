@@ -5,8 +5,9 @@
   <button class="category-button"> Créer la catégorie </button>
 </form>
 <div class="categories-container" >
-<div *ngFor="let category of categories" class="categories-list">
-  <div>{{category.name}}
+<div *ngFor="let category of categories, let i=index" class="categories-list">
+  <div (click)="categoryDetails(category.id)">
+  <div> {{category.name}}
   <button (click)="addNewTask(category.id)"> Ajouter une tâche </button>
   </div>
   <div [formGroup]="taskForm" *ngIf="isAddTask">
@@ -22,6 +23,7 @@
     </div>
   </div>
 
+</div>
 </div>
 </div>
 </div>
