@@ -4,7 +4,7 @@ import { ListCategoriesComponent } from './components/list-categories/list-categ
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ListCategoriesComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

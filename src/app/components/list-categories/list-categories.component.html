@@ -6,8 +6,8 @@
 </form>
 <div class="categories-container" >
 <div *ngFor="let category of categories, let i=index" class="categories-list">
-  <div (click)="categoryDetails(category.id)">
-  <div> {{category.name}}
+  <div>
+  <div (click)="categoryDetails(category.id)"> {{category.name}}</div>
   <button (click)="addNewTask(category.id)"> Ajouter une tâche </button>
   </div>
   <div [formGroup]="taskForm" *ngIf="isAddTask">
@@ -22,8 +22,6 @@
     <button (click)="deleteTask(category.id, task.id)">Supprimer</button>
     </div>
   </div>
-
-</div>
 </div>
 </div>
 </div>

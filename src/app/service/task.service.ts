@@ -6,6 +6,7 @@ import { Form, FormGroup } from '@angular/forms';
   providedIn: 'root'
 })
 export class TaskService {
+  categories : Categories [] = [];
 
   constructor() { }
 
@@ -33,5 +34,15 @@ localStorage.setItem('categories', JSON.stringify(categories));
 public deleteTask(arg0: number, arg1: number, categories : Categories[]) {
   categories[arg0-1].task.splice(arg1-1, 1);
   localStorage.setItem('categories', JSON.stringify(categories)); 
+}
+
+public getCategoryById(id : number) : Categories | null {
+  const categories = localStorage.getItem('categories')
+  if(categories){
+    const categoriesArray : Categories[] = JSON.parse(categories);
+    const category = categoriesArray.find(c => c.id === id);
+    return category ?? null;
+  }
+  return null;
 }
 }

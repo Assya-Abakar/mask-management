@@ -54,7 +54,7 @@ this.categoryForm.reset();
 public categoryDetails(arg: number) : void {
   console.log(arg);
   this.router.navigate(['/category'],
-  { queryParams: { id: arg } }
+  { queryParams: { categoryId : arg } }
   );
 }
 
