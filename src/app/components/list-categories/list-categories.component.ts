@@ -27,7 +27,8 @@ taskForm = this.fb.group({
   name : ['', Validators.required],
   completed : [false],
 })
-isAddTask : boolean = false;
+
+activeCategoryId : number = 0;
 
 constructor( private readonly taskService: TaskService, 
               private readonly router : Router
@@ -52,7 +53,6 @@ this.categoryForm.reset();
 }
 
 public categoryDetails(arg: number) : void {
-  console.log(arg);
   this.router.navigate(['/category'],
   { queryParams: { categoryId : arg } }
   );
@@ -60,6 +60,7 @@ public categoryDetails(arg: number) : void {
 
 public addTask(arg: number) {
 
+  this.activeCategoryId = 0;
 if(this.taskForm.valid && this.taskForm.value.name != undefined && this.taskForm.value.completed != undefined){
   this.taskService.addTask(arg, this.categories, this.taskForm);
 }
@@ -71,11 +72,11 @@ this.taskForm.reset();
 
 public addNewTask(id : number) : void {
 if(this.categories[id-1].id === id){
-this.isAddTask = true;
+this.activeCategoryId = this.activeCategoryId === id ? 0 : id;
 }
 }
 
-deleteTask(arg0: number, arg1: number) {
+public deleteTask(arg0: number, arg1: number) {
   this.taskService.deleteTask(arg0, arg1, this.categories);
 }
 

@@ -10,7 +10,7 @@
   <div (click)="categoryDetails(category.id)"> {{category.name}}</div>
   <button (click)="addNewTask(category.id)"> Ajouter une tâche </button>
   </div>
-  <div [formGroup]="taskForm" *ngIf="isAddTask">
+  <div [formGroup]="taskForm" *ngIf="activeCategoryId === category.id">
     <input type="text" placeholder="tâche" formControlName="name">
     <input type="checkbox" formControlName="completed"> Finie
     <button (click)="addTask(category.id)" >Ajouter</button>
