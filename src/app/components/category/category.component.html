@@ -1,4 +1,5 @@
 <div>
+    <button (click)="goBack()">Retour</button>
     <h2>Categorie : {{ category?.name }}</h2>
     <div> Tâches </div>
     <div *ngFor="let task of category?.task">  

@@ -5,7 +5,7 @@
   <button class="category-button"> Créer la catégorie </button>
 </form>
 <div class="categories-container" >
-<div *ngFor="let category of categories, let i=index" class="categories-list">
+<div *ngFor="let category of categories, trackBy:trackBy(category)" class="categories-list">
   <div>
   <div (click)="categoryDetails(category.id)"> {{category.name}}</div>
   <button (click)="addNewTask(category.id)"> Ajouter une tâche </button>

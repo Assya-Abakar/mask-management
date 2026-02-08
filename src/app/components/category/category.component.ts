@@ -34,4 +34,8 @@ export class CategoryComponent implements OnInit {
     this.category = this.taskService.getCategoryById(id);
     console.log(this.id, this.category);
   }
+
+  public goBack() : void {
+    window.history.back();
+  }
 }

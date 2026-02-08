@@ -79,5 +79,7 @@ this.activeCategoryId = this.activeCategoryId === id ? 0 : id;
 public deleteTask(arg0: number, arg1: number) {
   this.taskService.deleteTask(arg0, arg1, this.categories);
 }
-
+trackBy(item: Categories): number {
+  return item.id;
+}
 }
