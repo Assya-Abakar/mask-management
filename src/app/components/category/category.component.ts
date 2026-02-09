@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../../service/task.service';
 import { Categories } from '../../models/categories';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -20,7 +21,6 @@ export class CategoryComponent implements OnInit {
               private readonly taskService : TaskService
   ){
    this.category = this.taskService.getCategoryById(this.id);
-    console.log(this.taskService.getCategoryById(2));
   }
   ngOnInit(): void {
     this.activatedroute.queryParams.subscribe((params) => {
@@ -32,7 +32,6 @@ export class CategoryComponent implements OnInit {
 
   public getCategory(id :number) : void {
     this.category = this.taskService.getCategoryById(id);
-    console.log(this.id, this.category);
   }
 
   public goBack() : void {

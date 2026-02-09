@@ -35,11 +35,7 @@ constructor( private readonly taskService: TaskService,
 ) { }
 
 ngOnInit(): void {
-  const savedCategories = localStorage.getItem('categories');
-  if(savedCategories){
-    this.categories = JSON.parse(savedCategories);
-  }
-  localStorage.setItem('task', JSON.stringify(this.categories));
+  this.categories = this.taskService.getSavedCategories()
 }
 
 public onSubmit() : void {
@@ -63,6 +59,7 @@ public addTask(arg: number) {
   this.activeCategoryId = 0;
 if(this.taskForm.valid && this.taskForm.value.name != undefined && this.taskForm.value.completed != undefined){
   this.taskService.addTask(arg, this.categories, this.taskForm);
+  console.log(this.categories, arg, this.taskForm.value);
 }
 else {
   alert('Please fill in all the fields');
@@ -71,15 +68,21 @@ this.taskForm.reset();
 }
 
 public addNewTask(id : number) : void {
-if(this.categories[id-1].id === id){
-this.activeCategoryId = this.activeCategoryId === id ? 0 : id;
+  console.log(this.categories, id);
+  this.activeCategoryId = this.activeCategoryId === id ? 0 : id;
+if(this.categories[id].id === id){
+this.taskService.addTask(id, this.categories, this.taskForm);
 }
 }
 
 public deleteTask(arg0: number, arg1: number) {
   this.taskService.deleteTask(arg0, arg1, this.categories);
+  console.log(this.categories, arg0, arg1);
 }
-trackBy(item: Categories): number {
+public trackById(arg:number, item: Categories): number {
+  return item.id;
+}
+public trackTaskId(arg0: number, item: Task): number {
   return item.id;
 }
 }
